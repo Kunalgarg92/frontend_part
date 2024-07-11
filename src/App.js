@@ -1,24 +1,143 @@
-import logo from './logo.svg';
-import './App.css';
+// import React, { useState } from "react";
+// import "./App.css";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import Home from "./pages/Home";
+// import SignUp from "./pages/SignUp";
+// import Login from "./pages/Login";
+// import View from "./pages/View";
+// import Courses from "./pages/Courses";
+// import AddCourse from "./pages/AddCouse.js"; // Import AddCourse component
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
+// import coursesData from "./pages/course"; // Import the course data
+// import { AuthProvider } from "../src/pages/AuthProvider";
+
+// function App() {
+//   const [courses, setCourses] = useState(coursesData);
+//   const [selectedCourses, setSelectedCourses] = useState([]);
+
+//   const addCourse = (course) => {
+//     setSelectedCourses([...selectedCourses, course]);
+//   };
+
+//   const removeCourse = (courseId) => {
+//     setSelectedCourses(
+//       selectedCourses.filter((course) => course.id !== courseId)
+//     );
+//   };
+
+//   const addNewCourse = (formData) => {
+//     // Generate a new course object with FormData received
+//     const newCourse = {
+//       id: formData.get("id"),
+//       image: URL.createObjectURL(formData.get("image")),
+//       title: formData.get("title"),
+//       instructor: formData.get("instructor"),
+//       description: formData.get("description"),
+//     };
+
+//     setCourses([...courses, newCourse]);
+//   };
+
+//   return (
+//     <AuthProvider>
+//       <BrowserRouter>
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/signup" element={<SignUp />} />
+//           <Route path="/login" element={<Login />} />
+//           <Route
+//             path="/view"
+//             element={
+//               <View
+//                 selectedCourses={selectedCourses}
+//                 removeCourse={removeCourse}
+//               />
+//             }
+//           />
+//           <Route
+//             path="/courses"
+//             element={<Courses courses={courses} addCourse={addCourse} />} // Pass courses and addCourse as props
+//           />
+//           <Route
+//             path="/add-course"
+//             element={<AddCourse addNewCourse={addNewCourse} />} // Pass addNewCourse as a prop
+//           />
+//         </Routes>
+//       </BrowserRouter>
+//     </AuthProvider>
+//   );
+// }
+
+// export default App;
+
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import View from "./pages/View";
+import Courses from "./pages/Courses";
+import AddCourse from "./pages/AddCouse.js"; // Import AddCourse component
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import coursesData from "./pages/course"; // Import the course data
+import { AuthProvider } from "../src/pages/AuthProvider";
 
 function App() {
+  const [courses, setCourses] = useState(coursesData);
+  const [selectedCourses, setSelectedCourses] = useState([]);
+
+  const addCourse = (course) => {
+    setSelectedCourses([...selectedCourses, course]);
+  };
+
+  const removeCourse = (courseId) => {
+    setSelectedCourses(
+      selectedCourses.filter((course) => course.id !== courseId)
+    );
+  };
+
+  const addNewCourse = (formData) => {
+    // Generate a new course object with FormData received
+    const newCourse = {
+      id: formData.get("id"),
+      image: URL.createObjectURL(formData.get("image")),
+      title: formData.get("title"),
+      instructor: formData.get("instructor"),
+      description: formData.get("description"),
+    };
+
+    setCourses([...courses, newCourse]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/view"
+            element={
+              <View
+                selectedCourses={selectedCourses}
+                removeCourse={removeCourse}
+              />
+            }
+          />
+          <Route
+            path="/courses"
+            element={<Courses courses={courses} addCourse={addCourse} />} // Pass courses and addCourse as props
+          />
+          <Route
+            path="/add-course"
+            element={<AddCourse addNewCourse={addNewCourse} />} // Pass addNewCourse as a prop
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
